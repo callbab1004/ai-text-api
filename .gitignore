@@ -1,0 +1,25 @@
+# — Laravel
+/vendor/
+/node_modules/
+/.env
+.phpunit.result.cache
+/storage/*.key
+/storage/logs/
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/public/storage
+/public/hot
+
+# — Docker
+/.env.docker
+/.docker/*.local
+/docker-compose.override.yml
+
+# — IDE / OS
+/.idea/
+/.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+.DS_Store
+Thumbs.db
