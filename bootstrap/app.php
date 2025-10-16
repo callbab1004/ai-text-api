@@ -4,6 +4,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
+
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
@@ -17,7 +19,14 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->render(function (ThrottleRequestsException $e, $request) {
+            return response()->json([
+                'error' => [
+                    'code' => 'RATE_LIMITED',
+                    'message' => 'Too many requests. Please try again later.',
+                ],
+            ], 429);
+        });
     })
     ->withProviders([
         App\Providers\LlmServiceProvider::class,
